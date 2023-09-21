@@ -3,7 +3,9 @@ package pe.edu.upc.aaw.littlewishweb.Controller;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.aaw.littlewishweb.Dtos.CardDTO;
 import pe.edu.upc.aaw.littlewishweb.Dtos.CommentsDTO;
+import pe.edu.upc.aaw.littlewishweb.Entities.Card;
 import pe.edu.upc.aaw.littlewishweb.Entities.Comments;
 import pe.edu.upc.aaw.littlewishweb.Services.ICommentsService;
 
@@ -29,6 +31,12 @@ public class CommentsController {
             ModelMapper m = new ModelMapper();
             return m.map(x, CommentsDTO.class);
         }).collect(Collectors.toList());
+    }
+    @PutMapping
+    public void update(@RequestBody CommentsDTO dto) {
+        ModelMapper m = new ModelMapper();
+        Comments c = m.map(dto, Comments.class);
+        cS.insert(c);
     }
 
     @DeleteMapping("/{id}")

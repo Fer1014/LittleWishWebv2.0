@@ -3,7 +3,9 @@ package pe.edu.upc.aaw.littlewishweb.Controller;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.aaw.littlewishweb.Dtos.CardDTO;
 import pe.edu.upc.aaw.littlewishweb.Dtos.PointsDTO;
+import pe.edu.upc.aaw.littlewishweb.Entities.Card;
 import pe.edu.upc.aaw.littlewishweb.Entities.Points;
 import pe.edu.upc.aaw.littlewishweb.Services.IPointsService;
 
@@ -28,6 +30,12 @@ public class PointsController {
             ModelMapper m = new ModelMapper();
             return m.map(x, PointsDTO.class);
         }).collect(Collectors.toList());
+    }
+    @PutMapping
+    public void update(@RequestBody PointsDTO dto) {
+        ModelMapper m = new ModelMapper();
+        Points p = m.map(dto, Points.class);
+        pS.insert(p);
     }
 
     @DeleteMapping("/{id}")
